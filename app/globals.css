@@ -6,6 +6,11 @@
   --font-mono: var(--font-mono), monospace;
 }
 
+/* Prevent zoom behavior on mobile devices */
+html, body {
+  touch-action: manipulation;
+}
+
 /* Custom scrollbar matching immersive crimson protocol theme */
 ::-webkit-scrollbar {
   width: 6px;
