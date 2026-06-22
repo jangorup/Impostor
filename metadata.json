@@ -1,0 +1,6 @@
+{
+  "name": "Impostor",
+  "description": "Dramatična društvena igra pogađanja i otkrivanja uljeza za 3 do 12 igrača u crveno-crnom stilu.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
