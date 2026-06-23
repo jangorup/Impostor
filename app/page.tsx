@@ -172,6 +172,7 @@ export default function ImpostorGame() {
   const [impostorCount, setImpostorCount] = useState<number>(1);
   const [timerSetting, setTimerSetting] = useState<number>(120); // default 2 mins in seconds
   const [difficulty, setDifficulty] = useState<"lagano" | "srednje" | "tesko">("srednje");
+  const [enableImpostorHints, setEnableImpostorHints] = useState<boolean>(true);
 
 
   // Active Round variables
@@ -316,7 +317,7 @@ export default function ImpostorGame() {
         name,
         role: isImpostor ? "impostor" : "citizen",
         word: isImpostor ? "" : generatedWord,
-        hint: generatedHint, // Both get the hint to think it's relevant, but card display details differ
+        hint: enableImpostorHints ? generatedHint : "", // Both get the hint if enabled, otherwise empty
         eliminated: false,
         votes: 0
       };
@@ -633,6 +634,43 @@ export default function ImpostorGame() {
                     </div>
                   </div>
 
+                  {/* Toggle Impostor Hints */}
+                  <div className="space-y-2.5">
+                    <div className="flex justify-between items-center text-xs">
+                      <span className="font-bold uppercase tracking-widest text-red-400">Tragovi (Hintovi) za Impostora</span>
+                      <span className={`px-2.5 py-0.5 rounded border text-xs font-mono tracking-wider font-extrabold ${enableImpostorHints ? "bg-red-950/30 border-red-650 text-red-400" : "bg-black/50 border-red-955 text-red-700/60"}`}>
+                        {enableImpostorHints ? "UKLJUČENO" : "ISKLJUČENO"}
+                      </span>
+                    </div>
+                    <div className="grid grid-cols-2 gap-1.5">
+                      <button
+                        type="button"
+                        onClick={() => { setEnableImpostorHints(true); playSoundEffect("ping"); }}
+                        className={`py-2 rounded-xl text-center border font-bold text-xs uppercase tracking-wider transition-all cursor-pointer ${
+                          enableImpostorHints 
+                            ? "bg-red-650 text-black border-red-500 shadow-[0_0_15px_rgba(220,38,38,0.35)] font-black" 
+                            : "bg-black/60 text-red-400 border-red-955/45 hover:bg-red-955/10 hover:text-red-300 font-bold"
+                        }`}
+                      >
+                        Uključi tragove
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => { setEnableImpostorHints(false); playSoundEffect("ping"); }}
+                        className={`py-2 rounded-xl text-center border font-bold text-xs uppercase tracking-wider transition-all cursor-pointer ${
+                          !enableImpostorHints 
+                            ? "bg-red-650 text-black border-red-500 shadow-[0_0_15px_rgba(220,38,38,0.35)] font-black" 
+                            : "bg-black/60 text-red-400 border-red-955/45 hover:bg-red-955/10 hover:text-red-300 font-bold"
+                        }`}
+                      >
+                        Isključi tragove
+                      </button>
+                    </div>
+                    <span className="text-[10px] text-red-500/50 block italic leading-tight font-mono">
+                      *Impostor dobiva opći trag/hint o riječi (npr. &quot;Tijesto&quot; za Pizzu) ako je uključeno, inače igra naslijepo bez ikakvih tragova.
+                    </span>
+                  </div>
+
                   {/* Timer settings selection */}
                   <div className="space-y-2.5">
                     <div className="flex justify-between items-center text-xs">
@@ -764,12 +802,14 @@ export default function ImpostorGame() {
                               </p>
                             </div>
                             
-                            <div className="space-y-1 pt-2">
-                              <span className="text-[10px] text-red-400/60 uppercase tracking-widest block font-mono">Trag iz baze Crimson Protocol</span>
-                              <p className="text-lg font-bold text-white uppercase tracking-wider px-4 py-1.5 bg-red-950/60 rounded inline-block border border-red-600/30 min-w-[200px] font-mono">
-                                {players[revealIndex].hint}
-                              </p>
-                            </div>
+                            {players[revealIndex].hint && (
+                              <div className="space-y-1 pt-2">
+                                <span className="text-[10px] text-red-400/60 uppercase tracking-widest block font-mono">Trag iz baze Crimson Protocol</span>
+                                <p className="text-lg font-bold text-white uppercase tracking-wider px-4 py-1.5 bg-red-950/60 rounded inline-block border border-red-600/30 min-w-[200px] font-mono">
+                                  {players[revealIndex].hint}
+                                </p>
+                              </div>
+                            )}
                           </div>
                         ) : (
                           <div className="space-y-3">
@@ -1190,7 +1230,7 @@ export default function ImpostorGame() {
                               ? "bg-red-600 text-black font-display tracking-wider"
                               : "bg-red-950/60 text-red-450 border border-red-900/40"
                           }`}>
-                            {p.role === "impostor" ? `Impostor (Trag: ${p.hint})` : `Građanin`}
+                            {p.role === "impostor" ? (p.hint ? `Impostor (Trag: ${p.hint})` : `Impostor`) : `Građanin`}
                           </span>
                         </div>
                       </div>
