@@ -56,6 +56,11 @@ Zadana težina igre je: ${difficulty} (lagano, srednje ili teško). Ovisno o toj
 - Ako je zadana težina "teško" (hard): odaberi apstraktne, znanstvene, filozofske, tehničke ili rijetke pojmove koji su teški za opisati bez brzog otkrivanja uloge (npr. "Entropija", "Paradoks", "Fotosinteza", "Egzoskelet", "Alkemija", "Amnezija", "Crna rupa", "Utopija").
 ${avoidPromptSection}
 
+STROGO PRAVILO ZA IZBJEGAVANJE NEPRIRODNIH SPOJEVA:
+- STROGO JE ZABRANJENO generirati riječi koje sadrže boje (npr. "bijeli vulkan", "plavo more", "žuto sunce", "crveni dvorac" su strogo zabranjeni).
+- STROGO JE ZABRANJENO spajanje nepovezanih ili neprirodnih pridjeva s imenicama (npr. "brza sarma", "veseli vulkan", "hladni programer" su strogo zabranjeni).
+- Tajna riječ mora biti prirodan, stvaran, uobičajen i samostalan pojam na hrvatskom jeziku (poželjno jedna riječ ili iznimno poznata dvorječna fraza poput "Eiffelov toranj" ili "Crna rupa").
+
 Moramo dobiti:
 1. Tajna riječ (specifičan pojam na hrvatskom jeziku, prilagođen zadanoj težini: "${difficulty}").
 2. Impostor hint (isključivo točno JEDNA riječ na hrvatskom jeziku).

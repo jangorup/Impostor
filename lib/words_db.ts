@@ -5,7 +5,7 @@ export interface WordItem {
 }
 
 // Pre-defined base words with precise hints and categories in Croatian
-const BASE_WORDS: Record<"lagano" | "srednje" | "tesko", WordItem[]> = {
+export const OFFLINE_DIFFICULTY_WORDS: Record<"lagano" | "srednje" | "tesko", WordItem[]> = {
   lagano: [
     { word: "Pizza", hint: "Tijesto", category: "Hrana" },
     { word: "Banana", hint: "Oguliti", category: "Hrana" },
@@ -21,7 +21,7 @@ const BASE_WORDS: Record<"lagano" | "srednje" | "tesko", WordItem[]> = {
     { word: "Cvijet", hint: "Latice", category: "Priroda" },
     { word: "Stol", hint: "Drvo", category: "Namještaj" },
     { word: "Lopta", hint: "Kotrljanje", category: "Igračke" },
-    { word: "Jabuka", hint: "Crveno", category: "Hrana" },
+    { word: "Jabuka", hint: "Stablo", category: "Hrana" },
     { word: "Vatra", hint: "Toplina", category: "Priroda" },
     { word: "More", hint: "Valovi", category: "Priroda" },
     { word: "Zvijezda", hint: "Nebo", category: "Priroda" },
@@ -32,7 +32,7 @@ const BASE_WORDS: Record<"lagano" | "srednje" | "tesko", WordItem[]> = {
     { word: "Telefon", hint: "Poziv", category: "Predmeti" },
     { word: "Cipele", hint: "Hodanje", category: "Odjeća" },
     { word: "Torba", hint: "Nošenje", category: "Predmeti" },
-    { word: "Mlijeko", hint: "Bijelo", category: "Hrana" },
+    { word: "Mlijeko", hint: "Krava", category: "Hrana" },
     { word: "Trava", hint: "Zeleno", category: "Priroda" },
     { word: "Kišobran", hint: "Kiša", category: "Predmeti" },
     { word: "Palačinke", hint: "Slatko", category: "Hrana" },
@@ -103,7 +103,24 @@ const BASE_WORDS: Record<"lagano" | "srednje" | "tesko", WordItem[]> = {
     { word: "Pila", hint: "Drvo", category: "Alati" },
     { word: "Kliješta", hint: "Žica", category: "Alati" },
     { word: "Odvijač", hint: "Vijak", category: "Alati" },
-    { word: "Ljestve", hint: "Visina", category: "Alati" }
+    { word: "Ljestve", hint: "Visina", category: "Alati" },
+    { word: "Kruh", hint: "Pekara", category: "Hrana" },
+    { word: "Maslac", hint: "Mazanje", category: "Hrana" },
+    { word: "Jagoda", hint: "Slatko", category: "Hrana" },
+    { word: "Nebo", hint: "Oblaci", category: "Priroda" },
+    { word: "Most", hint: "Rijeka", category: "Građevine" },
+    { word: "Šuma", hint: "Stabla", category: "Priroda" },
+    { word: "Jezero", hint: "Riba", category: "Priroda" },
+    { word: "Kamen", hint: "Teško", category: "Priroda" },
+    { word: "Zmaj", hint: "Let", category: "Igračke" },
+    { word: "Majica", hint: "Tijelo", category: "Odjeća" },
+    { word: "Hlače", hint: "Noge", category: "Odjeća" },
+    { word: "Jakna", hint: "Zima", category: "Odjeća" },
+    { word: "Čarape", hint: "Stopalo", category: "Odjeća" },
+    { word: "Prsten", hint: "Prst", category: "Nakit" },
+    { word: "Naočale", hint: "Vid", category: "Predmeti" },
+    { word: "Šal", hint: "Vrat", category: "Odjeća" },
+    { word: "Rukavice", hint: "Ruke", category: "Odjeća" }
   ],
   srednje: [
     { word: "Svjetionik", hint: "Obala", category: "Građevine" },
@@ -126,7 +143,6 @@ const BASE_WORDS: Record<"lagano" | "srednje" | "tesko", WordItem[]> = {
     { word: "Vatromet", hint: "Nebo", category: "Predmeti" },
     { word: "Skulptura", hint: "Kamen", category: "Umjetnost" },
     { word: "Liječnik", hint: "Bolnica", category: "Zanimanja" },
-    { word: "Gitara", hint: "Žice", category: "Glazbeni instrumenti" },
     { word: "Sarma", hint: "Kupus", category: "Hrana" },
     { word: "Pustinja", hint: "Pijesak", category: "Priroda" },
     { word: "Tornado", hint: "Vrtlog", category: "Priroda" },
@@ -156,16 +172,41 @@ const BASE_WORDS: Record<"lagano" | "srednje" | "tesko", WordItem[]> = {
     { word: "Akvarel", hint: "Kist", category: "Umjetnost" },
     { word: "Gondola", hint: "Kanali", category: "Lokacije" },
     { word: "Labud", hint: "Jezero", category: "Životinje" },
-    { word: "Sova", hint: "Mudrost", category: "Životinje" },
+    { word: "Sova", hint: "Noć", category: "Životinje" },
     { word: "Vjetrenjača", hint: "Krila", category: "Građevine" },
     { word: "Tunel", hint: "Brdo", category: "Infrastruktura" },
     { word: "Gejzir", hint: "Para", category: "Priroda" },
     { word: "Radar", hint: "Signal", category: "Tehnologija" },
     { word: "Koralj", hint: "Greben", category: "Priroda" },
-    { word: "Kompas", hint: "Igla", category: "Predmeti" },
-    { word: "Komora", hint: "Tlak", category: "Tehnologija" },
     { word: "Mozaik", hint: "Pločice", category: "Umjetnost" },
-    { word: "Karavan", hint: "Deva", category: "Povijest" }
+    { word: "Karavan", hint: "Deva", category: "Povijest" },
+    { word: "Globus", hint: "Zemlja", category: "Predmeti" },
+    { word: "Koala", hint: "Eukaliptus", category: "Životinje" },
+    { word: "Kameleon", hint: "Promjena", category: "Životinje" },
+    { word: "Sfinga", hint: "Zagonetka", category: "Povijest" },
+    { word: "Orgulje", hint: "Crkva", category: "Glazba" },
+    { word: "Dirigent", hint: "Orkestar", category: "Zanimanja" },
+    { word: "Karusel", hint: "Vrtnja", category: "Igračke" },
+    { word: "Akrobat", hint: "Fleksibilnost", category: "Zanimanja" },
+    { word: "Mađioničar", hint: "Trik", category: "Zanimanja" },
+    { word: "Žirafa", hint: "Vrat", category: "Životinje" },
+    { word: "Krokodil", hint: "Zubi", category: "Životinje" },
+    { word: "Hobotnica", hint: "Krakovi", category: "Životinje" },
+    { word: "Svemirski brod", hint: "Raketa", category: "Svemir" },
+    { word: "Projektor", hint: "Zid", category: "Tehnologija" },
+    { word: "Printer", hint: "Papir", category: "Tehnologija" },
+    { word: "Zvučnik", hint: "Zvuk", category: "Tehnologija" },
+    { word: "Slušalice", hint: "Uši", category: "Tehnologija" },
+    { word: "Trezor", hint: "Šifra", category: "Predmeti" },
+    { word: "Katedrala", hint: "Toranj", category: "Građevine" },
+    { word: "Koloseum", hint: "Borba", category: "Povijest" },
+    { word: "Gondolijer", hint: "Veslo", category: "Zanimanja" },
+    { word: "Arhitekt", hint: "Nacrt", category: "Zanimanja" },
+    { word: "Novinar", hint: "Vijest", category: "Zanimanja" },
+    { word: "Kipar", hint: "Glina", category: "Zanimanja" },
+    { word: "Slikar", hint: "Platno", category: "Zanimanja" },
+    { word: "Plesač", hint: "Pokret", category: "Zanimanja" },
+    { word: "Pjevač", hint: "Glas", category: "Zanimanja" }
   ],
   tesko: [
     { word: "Egzoskelet", hint: "Oklop", category: "Tehnologija" },
@@ -195,140 +236,38 @@ const BASE_WORDS: Record<"lagano" | "srednje" | "tesko", WordItem[]> = {
     { word: "Astrofizika", hint: "Svemir", category: "Znanost" },
     { word: "Egzistencijalizam", hint: "Postojanje", category: "Filozofija" },
     { word: "Semiotika", hint: "Znakovi", category: "Znanost" },
-    { word: "Nanosekunda", hint: "Vrijeme", category: "Fizika" }
+    { word: "Nanosekunda", hint: "Brzina", category: "Fizika" },
+    { word: "Amnezija", hint: "Pamćenje", category: "Medicina" },
+    { word: "Nihilizam", hint: "Ništa", category: "Filozofija" },
+    { word: "Utopija", hint: "Idealno", category: "Sociologija" },
+    { word: "Distopija", hint: "Budućnost", category: "Sociologija" },
+    { word: "Solipsizam", hint: "Svijest", category: "Filozofija" },
+    { word: "Stoicizam", hint: "Mir", category: "Filozofija" },
+    { word: "Metafora", hint: "Značenje", category: "Jezik" },
+    { word: "Paradigma", hint: "Model", category: "Znanost" },
+    { word: "Ezoterija", hint: "Skriveno", category: "Kultura" },
+    { word: "Dualizam", hint: "Dvoje", category: "Filozofija" },
+    { word: "Hologram", hint: "Slika", category: "Tehnologija" },
+    { word: "Kvantna fizika", hint: "Čestice", category: "Znanost" },
+    { word: "Supernova", hint: "Eksplozija", category: "Svemir" },
+    { word: "Crna rupa", hint: "Gravitacija", category: "Svemir" },
+    { word: "Crvotočina", hint: "Prostor", category: "Svemir" },
+    { word: "Nanotehnologija", hint: "Atomi", category: "Znanost" },
+    { word: "Biometrija", hint: "Identitet", category: "Tehnologija" },
+    { word: "Anestezija", hint: "San", category: "Medicina" },
+    { word: "Telepatija", hint: "Misli", category: "Fikcija" },
+    { word: "Kozmologija", hint: "Svemir", category: "Znanost" },
+    { word: "Ontologija", hint: "Bitak", category: "Filozofija" },
+    { word: "Apsurd", hint: "Smisao", category: "Filozofija" },
+    { word: "Katarza", hint: "Pročišćenje", category: "Umjetnost" },
+    { word: "Nostalgija", hint: "Prošlost", category: "Psihologija" },
+    { word: "Apatija", hint: "Ravnodušnost", category: "Psihologija" },
+    { word: "Empatija", hint: "Osjećaji", category: "Psihologija" },
+    { word: "Intuicija", hint: "Predosjećaj", category: "Psihologija" },
+    { word: "Arhetip", hint: "Simbol", category: "Psihologija" },
+    { word: "Halucinacija", hint: "Iluzija", category: "Psihologija" },
+    { word: "Fluktuacija", hint: "Promjena", category: "Fizika" },
+    { word: "Mutacija", hint: "Promjena", category: "Biologija" },
+    { word: "Termodinamika", hint: "Toplina", category: "Fizika" }
   ]
 };
-
-// Helper to determine the grammatical gender/agreement ending for a given base word in Croatian
-function getAdjectiveEnding(baseWord: string): "i" | "a" | "o" | "e" {
-  const wordLower = baseWord.toLowerCase().trim();
-
-  // 1. Plural exceptions (Feminine plural words, or nouns ending in -e that represent plural)
-  const femininePlural = ["cipele", "palačinke", "škare", "ljestve"];
-  if (femininePlural.includes(wordLower)) {
-    return "e";
-  }
-
-  // 2. Plural neuter exceptions
-  const neuterPlural = ["vrata", "kliješta"];
-  if (neuterPlural.includes(wordLower)) {
-    return "a";
-  }
-
-  // 3. Masculine endings (consonants, or ending in 'o' like "auto", "sako", "tornado")
-  const masculineWords = ["auto", "sako", "tornado", "bazen", "balkon", "luster", "jastuk", "tepih", "ormar", "kaput", "sladoled", "led", "grm", "čavao"];
-  if (masculineWords.includes(wordLower)) {
-    return "i";
-  }
-
-  // 4. Feminine singular ending in 'a' or '-ost' or 'koš' (like kokoš)
-  if (wordLower.endsWith("a") || wordLower.endsWith("ost") || wordLower === "kokoš") {
-    return "a";
-  }
-
-  // 5. Neuter words ending in 'o' or 'e'
-  if (wordLower.endsWith("o") || wordLower.endsWith("e")) {
-    return "o";
-  }
-
-  // 6. Default to masculine 'i' for consonant endings
-  return "i";
-}
-
-// Declines a masculine singular adjective ending in 'i' into the correct gender ending
-function declineAdjective(adj: string, ending: "i" | "a" | "o" | "e"): string {
-  if (!adj.endsWith("i")) return adj;
-  const stem = adj.slice(0, -1);
-
-  if (ending === "i") {
-    return adj;
-  }
-  if (ending === "a") {
-    return stem + "a";
-  }
-  if (ending === "e") {
-    return stem + "e";
-  }
-  if (ending === "o") {
-    // Neuter ending is usually 'o', but if stem ends in a palatal consonant (j, lj, nj, ć, đ, š, ž, č) it's 'e'
-    const palatals = ["lj", "nj", "ć", "đ", "š", "ž", "č", "j"];
-    const endsWithPalatal = palatals.some(p => stem.toLowerCase().endsWith(p));
-    if (endsWithPalatal) {
-      return stem + "e";
-    }
-    return stem + "o";
-  }
-  return adj;
-}
-
-// Generates highly realistic, beautifully combined Croatian phrases (adjective + noun)
-// to yield over 1000 unique realistic words. This avoids robotic numbering!
-const expandWordDatabase = (): Record<"lagano" | "srednje" | "tesko", WordItem[]> => {
-  const result: Record<"lagano" | "srednje" | "tesko", WordItem[]> = {
-    lagano: [...BASE_WORDS.lagano],
-    srednje: [...BASE_WORDS.srednje],
-    tesko: [...BASE_WORDS.tesko]
-  };
-
-  // List of adjectives to pair with the base words
-  const adjectives = [
-    "Veliki", "Mali", "Brzi", "Plavi", "Zeleni", "Crveni", "Bijeli", "Crni", 
-    "Divlji", "Domaći", "Stari", "Novi", "Zlatni", "Srebrni", "Čarobni", "Tajni", 
-    "Skriveni", "Svemirski", "Morski", "Šumski", "Noćni", "Zimski", "Ljetni", 
-    "Slatki", "Hladni", "Topli", "Planinski", "Sunčani", "Sretni", "Mudri"
-  ];
-
-  const seenWords = new Set<string>();
-
-  // Helper to safely add uniquely combined words
-  const addCombined = (difficulty: "lagano" | "srednje" | "tesko", targetCount: number) => {
-    // Add existing words to seen list
-    result[difficulty].forEach(item => seenWords.add(item.word.toLowerCase()));
-
-    let adjectiveIndex = 0;
-    let baseWordIndex = 0;
-
-    const basePool = BASE_WORDS[difficulty];
-
-    while (result[difficulty].length < targetCount) {
-      const base = basePool[baseWordIndex % basePool.length];
-      const adj = adjectives[adjectiveIndex % adjectives.length];
-
-      // Formulate realistic adjective pairing based on grammar endings
-      const ending = getAdjectiveEnding(base.word);
-      const declinedAdj = declineAdjective(adj, ending);
-      let customizedWord = `${declinedAdj} ${base.word.toLowerCase()}`;
-      // Capitalize first letter of the phrase
-      customizedWord = customizedWord.charAt(0).toUpperCase() + customizedWord.slice(1);
-
-      const normalized = customizedWord.toLowerCase();
-      if (!seenWords.has(normalized)) {
-        seenWords.add(normalized);
-        result[difficulty].push({
-          word: customizedWord,
-          hint: `${base.hint} (${declinedAdj.toLowerCase()})`,
-          category: base.category
-        });
-      }
-
-      baseWordIndex++;
-      if (baseWordIndex % basePool.length === 0) {
-        adjectiveIndex++;
-      }
-
-      // Safeguard break if we exhaust permutations
-      if (adjectiveIndex >= adjectives.length && baseWordIndex >= basePool.length * 2) {
-        break;
-      }
-    }
-  };
-
-  // Generate 450 easy, 450 medium, and 400 hard words (1300 distinct words!)
-  addCombined("lagano", 450);
-  addCombined("srednje", 450);
-  addCombined("tesko", 400);
-
-  return result;
-};
-
-export const OFFLINE_DIFFICULTY_WORDS = expandWordDatabase();
