@@ -33,130 +33,16 @@ interface Player {
   votes: number;
 }
 
+interface UsedWordEntry {
+  word: string;
+  timestamp: number;
+}
+
+import { WordItem, OFFLINE_DIFFICULTY_WORDS } from "../lib/words_db";
+
 const PRESET_PLAYER_NAMES = [
   "Ivan", "Marija", "Luka", "Ana", "Marko", "Lucija", "Mateo", "Petra"
 ];
-
-interface WordItem {
-  word: string;
-  hint: string;
-  category: string;
-}
-
-// Fallback lists of words in Croatian categorized by difficulty for offline play
-const OFFLINE_DIFFICULTY_WORDS: Record<"lagano" | "srednje" | "tesko", WordItem[]> = {
-  lagano: [
-    { word: "Pizza", hint: "Tijesto", category: "Hrana" },
-    { word: "Banana", hint: "Oguliti", category: "Hrana" },
-    { word: "Pas", hint: "Kosti", category: "Životinje" },
-    { word: "Mačka", hint: "Presti", category: "Životinje" },
-    { word: "Sunce", hint: "Svjetlo", category: "Priroda" },
-    { word: "Voda", hint: "Mokro", category: "Priroda" },
-    { word: "Auto", hint: "Kotači", category: "Predmeti" },
-    { word: "Kuća", hint: "Prozor", category: "Građevine" },
-    { word: "Avion", hint: "Krilo", category: "Predmeti" },
-    { word: "Knjiga", hint: "Čitati", category: "Predmeti" },
-    { word: "Škola", hint: "Učenik", category: "Lokacije" },
-    { word: "Cvijet", hint: "Latice", category: "Priroda" },
-    { word: "Stol", hint: "Drvo", category: "Namještaj" },
-    { word: "Lopta", hint: "Kotrljanje", category: "Igračke" },
-    { word: "Jabuka", hint: "Crveno", category: "Hrana" },
-    { word: "Vatra", hint: "Toplina", category: "Priroda" },
-    { word: "More", hint: "Valovi", category: "Priroda" },
-    { word: "Zvijezda", hint: "Nebo", category: "Priroda" },
-    { word: "Riba", hint: "Voda", category: "Životinje" },
-    { word: "Sat", hint: "Vrijeme", category: "Predmeti" },
-    { word: "Drvo", hint: "Grana", category: "Priroda" },
-    { word: "Kava", hint: "Šalica", category: "Hrana" },
-    { word: "Telefon", hint: "Poziv", category: "Predmeti" },
-    { word: "Cipele", hint: "Hodanje", category: "Odjeća" },
-    { word: "Torba", hint: "Nošenje", category: "Predmeti" },
-    { word: "Mlijeko", hint: "Bijelo", category: "Hrana" },
-    { word: "Trava", hint: "Zeleno", category: "Priroda" },
-    { word: "Kišobran", hint: "Kiša", category: "Predmeti" },
-    { word: "Palačinke", hint: "Slatko", category: "Hrana" },
-    { word: "Sladoled", hint: "Ledeno", category: "Hrana" },
-    { word: "Kapa", hint: "Glava", category: "Odjeća" },
-    { word: "Krevet", hint: "Spavanje", category: "Namještaj" },
-    { word: "Prozor", hint: "Staklo", category: "Dijelovi kuće" },
-    { word: "Olovka", hint: "Pisanje", category: "Školski pribor" },
-    { word: "Čokolada", hint: "Slatkiš", category: "Hrana" }
-  ],
-  srednje: [
-    { word: "Svjetionik", hint: "Obala", category: "Građevine" },
-    { word: "Helikopter", hint: "Elisa", category: "Vozila" },
-    { word: "Vulkan", hint: "Krater", category: "Priroda" },
-    { word: "Kineski zid", hint: "Obrana", category: "Lokacije" },
-    { word: "Eiffelov toranj", hint: "Pariz", category: "Lokacije" },
-    { word: "Klokan", hint: "Skakanje", category: "Životinje" },
-    { word: "Dupin", hint: "Peraja", category: "Životinje" },
-    { word: "Pingvin", hint: "Antarktika", category: "Životinje" },
-    { word: "Mikroskop", hint: "Leća", category: "Instrumenti" },
-    { word: "Kompas", hint: "Sjever", category: "Predmeti" },
-    { word: "Padobran", hint: "Skok", category: "Oprema" },
-    { word: "Vatrogasac", hint: "Požar", category: "Zanimanja" },
-    { word: "Programer", hint: "Kodiranje", category: "Zanimanja" },
-    { word: "Astronaut", hint: "Svemir", category: "Zanimanja" },
-    { word: "Podmornica", hint: "Dubina", category: "Vozila" },
-    { word: "Termometar", hint: "Celzijus", category: "Predmeti" },
-    { word: "Labirint", hint: "Prolaz", category: "Lokacije" },
-    { word: "Vatromet", hint: "Nebo", category: "Predmeti" },
-    { word: "Skulptura", hint: "Kamen", category: "Umjetnost" },
-    { word: "Liječnik", hint: "Bolnica", category: "Zanimanja" },
-    { word: "Gitara", hint: "Žice", category: "Glazbeni instrumenti" },
-    { word: "Sarma", hint: "Kupus", category: "Hrana" },
-    { word: "Pustinja", hint: "Pijesak", category: "Priroda" },
-    { word: "Tornado", hint: "Vrtlog", category: "Priroda" },
-    { word: "Bumerang", hint: "Bacanje", category: "Igračke" },
-    { word: "Gramofon", hint: "Ploča", category: "Predmeti" },
-    { word: "Glečer", hint: "Led", category: "Priroda" },
-    { word: "Meduza", hint: "Prozirno", category: "Životinje" },
-    { word: "Dvorac", hint: "Princ", category: "Lokacije" },
-    { word: "Akvarij", hint: "Staklo", category: "Predmeti" },
-    { word: "Dinosaur", hint: "Fosili", category: "Životinje" },
-    { word: "Policajac", hint: "Značka", category: "Zanimanja" },
-    { word: "Mumija", hint: "Zavoj", category: "Povijest" },
-    { word: "Mikrovalna", hint: "Grijanje", category: "Kuhinja" },
-    { word: "Fotograf", hint: "Objektiv", category: "Zanimanja" }
-  ],
-  tesko: [
-    { word: "Egzoskelet", hint: "Oklop", category: "Tehnologija" },
-    { word: "Kriptografija", hint: "Šifra", category: "Informatika" },
-    { word: "Entropija", hint: "Kaos", category: "Fizika" },
-    { word: "Paradoks", hint: "Kontradikcija", category: "Filozofija" },
-    { word: "Fotosinteza", hint: "Klorofil", category: "Biologija" },
-    { word: "Arheologija", hint: "Iskopavanja", category: "Znanost" },
-    { word: "Simbioza", hint: "Zajednica", category: "Biologija" },
-    { word: "Gravitacija", hint: "Masa", category: "Fizika" },
-    { word: "Alkemija", hint: "Pretvorba", category: "Povijest" },
-    { word: "Monolit", hint: "Blok", category: "Spomenici" },
-    { word: "Metafora", hint: "Usporedba", category: "Književnost" },
-    { word: "Proročanstvo", hint: "Budućnost", category: "Mitologija" },
-    { word: "Inkubator", hint: "Toplina", category: "Medicina" },
-    { word: "Halucinacija", hint: "Privid", category: "Psihologija" },
-    { word: "Crna rupa", hint: "Gravitacija", category: "Svemir" },
-    { word: "Hipnoza", hint: "Trans", category: "Psihologija" },
-    { word: "Turbina", hint: "Oštrice", category: "Strojarstvo" },
-    { word: "Oscilator", hint: "Valovi", category: "Tehnologija" },
-    { word: "Nanotehnologija", hint: "Atomi", category: "Znanost" },
-    { word: "Labirint uma", hint: "Misli", category: "Filozofija" },
-    { word: "Ekvator", hint: "Krug", category: "Geografija" },
-    { word: "Gromobran", hint: "Munja", category: "Tehnologija" },
-    { word: "Atmosfera", hint: "Zrak", category: "Geografija" },
-    { word: "Aura", hint: "Energija", category: "Ezoterija" },
-    { word: "Kozmos", hint: "Beskonačnost", category: "Svemir" },
-    { word: "Telepatija", hint: "Prijenos", category: "Parapsihologija" },
-    { word: "Klaustrofobija", hint: "Zatvoreno", category: "Ljudski um" },
-    { word: "Amnezija", hint: "Zaborav", category: "Ljudski um" },
-    { word: "Fuzija", hint: "Reakcija", category: "Fizika" },
-    { word: "Kameleon", hint: "Maskiranje", category: "Životinje" },
-    { word: "Ezoterija", hint: "Tajanstveno", category: "Filozofija" },
-    { word: "Arhetip", hint: "Uzorak", category: "Psihologija" },
-    { word: "Plagijat", hint: "Kopija", category: "Zakon" },
-    { word: "Kohezija", hint: "Spajanje", category: "Fizika" },
-    { word: "Utopija", hint: "Savršenstvo", category: "Filozofija" }
-  ]
-};
 
 export default function ImpostorGame() {
   // Game state
@@ -194,6 +80,45 @@ export default function ImpostorGame() {
   // UI helpers
   const [rulesOpen, setRulesOpen] = useState<boolean>(false);
   const [generationSource, setGenerationSource] = useState<"AI" | "Local">("Local");
+  const [usedWords, setUsedWords] = useState<UsedWordEntry[]>(() => {
+    if (typeof window !== "undefined") {
+      const savedV2 = localStorage.getItem("impostor_used_words_v2");
+      if (savedV2) {
+        try {
+          return JSON.parse(savedV2);
+        } catch (e) {}
+      }
+      
+      // Fallback migration from older string list
+      const saved = localStorage.getItem("impostor_used_words");
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed)) {
+            return parsed.map(item => {
+              if (typeof item === "string") {
+                return { word: item, timestamp: Date.now() };
+              }
+              if (item && typeof item === "object" && item.word) {
+                return { word: item.word, timestamp: item.timestamp || Date.now() };
+              }
+              return null;
+            }).filter((x): x is UsedWordEntry => x !== null);
+          }
+        } catch (e) {}
+      }
+    }
+    return [];
+  });
+
+  // Save used words to localStorage whenever they change
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("impostor_used_words_v2", JSON.stringify(usedWords));
+      // Keep old storage key in sync as a flat list of strings for safety
+      localStorage.setItem("impostor_used_words", JSON.stringify(usedWords.map(e => e.word)));
+    }
+  }, [usedWords]);
 
   // Audio effects synth completely removed based on user intent
   const playSoundEffect = (type: "tick" | "ping" | "reveal" | "eliminate" | "victory" | "defeat") => {
@@ -250,6 +175,7 @@ export default function ImpostorGame() {
 
   // Set up game elements, select roles and word via API or Offlines
   const handleStartGameSetup = async () => {
+    if (isLoadingWord) return;
     if (customPlayers.length < 3) return;
     
     setIsLoadingWord(true);
@@ -264,12 +190,23 @@ export default function ImpostorGame() {
       ? customCategoryInput.trim() || "Slučajno" 
       : selectedCategory;
 
+    const THREE_MONTHS_MS = 90 * 24 * 60 * 60 * 1000;
+    const now = Date.now();
+    // Filter used words within the last 3 months (90 days)
+    const avoidWordsStrings = usedWords
+      .filter(entry => now - entry.timestamp < THREE_MONTHS_MS)
+      .map(entry => entry.word.toLowerCase());
+
     try {
       // API call to server-side Gemini wrapper
-      const response = await fetch("/app/api/gemini/generate", {
+      const response = await fetch("/api/gemini/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ category: targetCategory, difficulty: difficulty }),
+        body: JSON.stringify({ 
+          category: targetCategory, 
+          difficulty: difficulty,
+          avoidWords: avoidWordsStrings
+        }),
       });
 
       if (response.ok) {
@@ -289,11 +226,23 @@ export default function ImpostorGame() {
     if (!generatedWord) {
       source = "Local";
       const pool = OFFLINE_DIFFICULTY_WORDS[difficulty] || OFFLINE_DIFFICULTY_WORDS.srednje;
-      const item = pool[Math.floor(Math.random() * pool.length)];
+      let available = pool.filter(item => !avoidWordsStrings.includes(item.word.toLowerCase()));
+      if (available.length === 0) {
+        available = pool; // reset pool if all words are exhausted
+        setUsedWords([]); // Reset usedWords history
+      }
+      const item = available[Math.floor(Math.random() * available.length)];
       generatedWord = item.word;
       generatedHint = item.hint;
       generatedCategory = item.category || "Općenito";
     }
+
+    // Add generated word with timestamp to used list and prune items older than 3 months
+    setUsedWords(prev => {
+      const filtered = prev.filter(entry => Date.now() - entry.timestamp < THREE_MONTHS_MS);
+      const clean = filtered.filter(entry => entry.word.toLowerCase() !== generatedWord.toLowerCase());
+      return [...clean, { word: generatedWord, timestamp: Date.now() }];
+    });
 
     setSecretWord(generatedWord);
     setImpostorHint(generatedHint);
@@ -1242,11 +1191,21 @@ export default function ImpostorGame() {
                   <button
                     type="button"
                     onClick={handleStartGameSetup}
-                    className="flex-grow bg-red-600 hover:bg-red-500 active:scale-95 text-black font-black tracking-widest text-xs py-3.5 rounded-xl transition-all uppercase flex items-center justify-center gap-1.5 shadow-[0_0_15px_rgba(220,38,38,0.2)] cursor-pointer"
+                    disabled={isLoadingWord}
+                    className="flex-grow bg-red-600 hover:bg-red-500 active:scale-95 text-black font-black tracking-widest text-xs py-3.5 rounded-xl transition-all uppercase flex items-center justify-center gap-1.5 shadow-[0_0_15px_rgba(220,38,38,0.2)] cursor-pointer disabled:bg-red-955/20 disabled:text-red-900/40 disabled:border-red-955/40 disabled:cursor-not-allowed"
                     id="btn-play-again"
                   >
-                    <RefreshCw className="w-4 h-4" />
-                    <span>Igraj Ponovno (Iste Postavke)</span>
+                    {isLoadingWord ? (
+                      <>
+                        <RefreshCw className="w-4 h-4 animate-spin" />
+                        <span>Pokretanje...</span>
+                      </>
+                    ) : (
+                      <>
+                        <RefreshCw className="w-4 h-4" />
+                        <span>Igraj Ponovno (Iste Postavke)</span>
+                      </>
+                    )}
                   </button>
 
                   <button
